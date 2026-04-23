@@ -1,0 +1,13 @@
+{
+  "projectName": "HillChart",
+  "languages": [
+    {
+      "id": "hillchart",
+      "grammar": "src/hillchart.langium",
+      "fileExtensions": [".mmd", ".mermaid"]
+    }
+  ],
+  "mode": "production",
+  "importExtension": ".js",
+  "out": "src/generated"
+}

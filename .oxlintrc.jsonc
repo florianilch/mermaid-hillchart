@@ -1,0 +1,5 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  // see https://github.com/oxc-project/oxc/issues/19937
+  "options": { "typeAware": true, "typeCheck": true },
+}

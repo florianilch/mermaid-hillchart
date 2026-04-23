@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+
+# Logs
+*.log
+pnpm-debug.log*
+
+# OS
+.DS_Store
+
+# Configuration files with secrets
+.env*.local
+.env
+
+TODO.md

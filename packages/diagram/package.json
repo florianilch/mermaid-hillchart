@@ -1,0 +1,50 @@
+{
+  "name": "mermaid-hillchart",
+  "version": "0.1.0",
+  "description": "External Mermaid diagram plugin for rendering Hill Charts",
+  "keywords": [
+    "diagram",
+    "hill-chart",
+    "hillchart",
+    "markdown",
+    "mermaid",
+    "mermaidjs",
+    "project-management",
+    "shape-up"
+  ],
+  "homepage": "https://github.com/florianilch/mermaid-hillchart/tree/main/packages/diagram#readme",
+  "bugs": {
+    "url": "https://github.com/florianilch/mermaid-hillchart/issues"
+  },
+  "license": "MIT",
+  "author": "Florian Ilch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/florianilch/mermaid-hillchart.git",
+    "directory": "packages/diagram"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint -c .oxlintrc.jsonc",
+    "lint:extra": "oxlint -c .oxlintrc.jsonc -W suspicious -W perf",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "mermaid": "^10.0.0 || ^11.0.0"
+  }
+}

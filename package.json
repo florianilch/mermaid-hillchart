@@ -1,0 +1,43 @@
+{
+  "name": "mermaid-hillchart-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm run -r --if-present build",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "pnpm run -r --if-present lint",
+    "lint:extra": "pnpm run -r --if-present lint:extra",
+    "test": "pnpm run -r --if-present test"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.2",
+    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/strictest": "^2.0.8",
+    "@types/node": "~24.10.14",
+    "happy-dom": "^20.9.0",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
+    "oxlint-tsgolint": "^0.21.1",
+    "publint": "^0.3.18",
+    "tsdown": "^0.21.9",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.5"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.0.0-rc.5+sha224.07413fb279f533eb7710a505251ad95f8c8b8a87755b9162bed2c538",
+      "onFail": "error"
+    },
+    "runtime": {
+      "name": "node",
+      "version": ">=24",
+      "onFail": "error"
+    }
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

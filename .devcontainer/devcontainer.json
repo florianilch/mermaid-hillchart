@@ -1,0 +1,25 @@
+{
+  "name": "mermaid-hillchart",
+
+  // https://github.com/devcontainers/images/tree/main/src/typescript-node
+  // https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/typescript-node/tags
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:4-24-trixie",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": ["oxc.oxc-vscode"]
+    }
+  },
+
+  "postCreateCommand": "sudo chown node ${containerWorkspaceFolder}/node_modules ${containerWorkspaceFolder}/.pnpm-store && npm uninstall -g pnpm && npm install -g corepack && sudo corepack enable",
+
+  "remoteUser": "node",
+
+  "mounts": [
+    // Move `node_modules` folder into dedicated volume to improve disk I/O performance
+    "source=node_modules-${devcontainerId},target=${containerWorkspaceFolder}/node_modules,type=volume",
+    // Move `.pnpm-store` folder into dedicated volume to improve disk I/O performance
+    "source=pnpm-store-${devcontainerId},target=${containerWorkspaceFolder}/.pnpm-store,type=volume"
+  ]
+}

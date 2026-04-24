@@ -1,0 +1,18 @@
+{
+  "name": "mermaid-hillchart-integration-tests",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:deps": "pnpm --filter mermaid-hillchart... build",
+    "lint": "oxlint -c .oxlintrc.jsonc",
+    "lint:extra": "oxlint -c .oxlintrc.jsonc -W suspicious -W perf",
+    "test": "vitest run",
+    "pretest": "pnpm run build:deps",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "mermaid": "catalog:",
+    "mermaid-hillchart": "workspace:*"
+  }
+}

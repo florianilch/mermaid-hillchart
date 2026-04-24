@@ -48,6 +48,7 @@
     "langium": "catalog:"
   },
   "devDependencies": {
+    "mermaid": "catalog:",
     "mermaid-hillchart-dsl": "workspace:*"
   },
   "peerDependencies": {

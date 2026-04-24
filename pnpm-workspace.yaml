@@ -1,7 +1,10 @@
 packages:
   - "packages/*"
+  - "tests/*"
 
 catalog:
   langium: ^4.2.2
+  # Pin one Mermaid version in-workspace to avoid duplicate type identities
+  mermaid: 11.14.0
 
 minimumReleaseAge: 4320 # 3 days

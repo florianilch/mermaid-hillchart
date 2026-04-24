@@ -44,6 +44,12 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "langium": "catalog:"
+  },
+  "devDependencies": {
+    "mermaid-hillchart-dsl": "workspace:*"
+  },
   "peerDependencies": {
     "mermaid": "^10.0.0 || ^11.0.0"
   }

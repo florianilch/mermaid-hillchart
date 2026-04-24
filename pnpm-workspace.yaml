@@ -1,4 +1,7 @@
 packages:
   - "packages/*"
 
+catalog:
+  langium: ^4.2.2
+
 minimumReleaseAge: 4320 # 3 days

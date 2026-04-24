@@ -21,7 +21,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "langium": "^4.2.2"
+    "langium": "catalog:"
   },
   "devDependencies": {
     "langium-cli": "^4.2.1"

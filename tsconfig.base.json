@@ -6,6 +6,18 @@
     "moduleResolution": "bundler",
     "module": "esnext",
     "verbatimModuleSyntax": true,
-    "allowJs": true
+    "allowJs": true,
+    "lib": [
+      // from @tsconfig/node24
+      "ES2024",
+      "ESNext.Array",
+      "ESNext.Collection",
+      "ESNext.Error",
+      "ESNext.Iterator",
+      "ESNext.Promise",
+      // additional libs for browser env
+      "DOM",
+      "DOM.Iterable"
+    ]
   }
 }

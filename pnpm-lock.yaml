@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    langium:
+      specifier: ^4.2.2
+      version: 4.2.2
+
 importers:
 
   .:
@@ -47,14 +53,21 @@ importers:
 
   packages/diagram:
     dependencies:
+      langium:
+        specifier: 'catalog:'
+        version: 4.2.2
       mermaid:
         specifier: ^10.0.0 || ^11.0.0
         version: 11.14.0
+    devDependencies:
+      mermaid-hillchart-dsl:
+        specifier: workspace:*
+        version: link:../dsl
 
   packages/dsl:
     dependencies:
       langium:
-        specifier: ^4.2.2
+        specifier: 'catalog:'
         version: 4.2.2
     devDependencies:
       langium-cli:

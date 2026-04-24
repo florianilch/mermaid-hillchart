@@ -24,7 +24,8 @@
     "directory": "packages/diagram"
   },
   "files": [
-    "dist"
+    "dist",
+    "example.png"
   ],
   "type": "module",
   "exports": {

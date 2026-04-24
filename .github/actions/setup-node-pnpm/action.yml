@@ -1,0 +1,25 @@
+name: Setup Node and pnpm
+description: Setup Corepack pnpm and Node.js with pnpm cache
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pnpm
+      shell: bash
+      run: |
+        npm install -g corepack@latest
+        corepack enable
+        corepack prepare pnpm@latest --activate
+
+    - name: Setup Node.js
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+      with:
+        node-version: 24
+        registry-url: https://registry.npmjs.org
+        cache: "pnpm"
+
+    # Avoid setup-node cache failure.
+    # see: https://github.com/actions/setup-node/issues/1137
+    - name: Ensure pnpm cache directory exists
+      shell: bash
+      run: mkdir -p "$(pnpm store path --silent)"

@@ -22,28 +22,30 @@ hillchart
   scope "In-app menu": uphill 20
 ```
 
-## Quickstart
+## 🚀 30-Second Quickstart
 
-```bash
-npm install mermaid mermaid-hillchart
-# or
-pnpm add mermaid mermaid-hillchart
-# or
-yarn add mermaid mermaid-hillchart
+If you are using Mermaid via a CDN or script tag, you can drop in the standalone bundle immediately:
+
+```html
+<body>
+  <pre class="mermaid">
+    hillchart
+      title Notifications
+      scope "Email design": uphill 50
+      scope "Email delivery": downhill 65
+      scope "In-app menu": uphill 20
+  </pre>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.3.0/dist/bundle/index.js"
+
+    await mermaid.registerExternalDiagrams([hillChart])
+    mermaid.initialize({ startOnLoad: true })
+  </script>
+</body>
 ```
 
-```typescript
-import mermaid from "mermaid"
-import hillChart from "mermaid-hillchart"
-
-await mermaid.registerExternalDiagrams([hillChart])
-mermaid.initialize({
-  startOnLoad: true,
-  externalHillchart: {
-    padding: 32,
-  },
-})
-```
+_(Using a bundler? See the [bundler setup guide](./packages/diagram/README.md#using-with-a-bundler).)_
 
 ## Compatibility
 

@@ -20,6 +20,41 @@ hillchart
 
 ## Getting Started
 
+### Using in the browser
+
+If you are using Mermaid via a CDN or script tag in the browser, use the `bundle` export. This version pre-bundles transitive dependencies.
+
+```html
+<body>
+  <pre class="mermaid">
+    hillchart
+      title Notifications
+      scope "Email design": uphill 50
+      scope "Email delivery": downhill 65
+      scope "In-app menu": uphill 20
+  </pre>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.3.0/dist/bundle/index.js"
+
+    // 1. Register the plugin
+    await mermaid.registerExternalDiagrams([hillChart])
+
+    // 2. Initialize Mermaid and pass plugin config
+    mermaid.initialize({
+      startOnLoad: true,
+      externalHillchart: {
+        padding: 32,
+      },
+    })
+  </script>
+</body>
+```
+
+### Using with a bundler
+
+If you are using a bundler install both Mermaid and the plugin via your package manager:
+
 ```bash
 npm install mermaid mermaid-hillchart
 # or
@@ -27,6 +62,8 @@ pnpm add mermaid mermaid-hillchart
 # or
 yarn add mermaid mermaid-hillchart
 ```
+
+Then register the diagram in your application code.
 
 ```typescript
 import mermaid from "mermaid"
@@ -40,6 +77,21 @@ mermaid.initialize({
   },
 })
 ```
+
+## Options
+
+Configure Hill Chart options in `mermaid.initialize({ externalHillchart: ... })`.
+
+> [!IMPORTANT]
+> Mermaid YAML frontmatter and `%%{init}%%` directives cannot set plugin-specific keys. Use `externalHillchart` in `mermaid.initialize()` instead.
+
+Available options:
+
+- `width` (default: `600`)
+- `height` (default: `300`)
+- `padding` (default: `32`)
+
+The plugin also respects standard Mermaid `BaseDiagramConfig` settings such as `useMaxWidth`.
 
 ## Syntax
 
@@ -64,7 +116,7 @@ hillchart
 ### Language Features
 
 - **Phase Labels:** Override the default left and right phase labels using `uphill <label>` and `downhill <label>`. (Aliases `up` and `down` are also supported).
-  - Defaults: `Figuring things out` and `Making it happen`, reflecting Shape Up’s uphill/downhill model from unknowns to execution.
+  - Defaults: `Figuring things out` and `Making it happen`
 - **Scopes:** Define scopes using `scope [id] "name": <phase> <position> [color] [inactive]`.
   - `[id]` is optional. If provided, it is added as a modifier CSS class on the scope's SVG group (`hillchart-scope--id-<id>`), allowing for external CSS styling hooks.
   - `<phase>` can be `up`, `uphill`, `down`, or `downhill`.

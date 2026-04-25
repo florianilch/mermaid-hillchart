@@ -1,12 +1,14 @@
+import { transparentize } from "khroma"
 import type { BaseDiagramConfig } from "mermaid/dist/config.type.js"
 import type { DiagramRenderer } from "mermaid/dist/diagram-api/types.js"
+import roughjs from "roughjs"
 
 import type { HillChartDB } from "./db.js"
 import { getConfig, log } from "./mermaidUtils.js"
 import { createCurveGeometry } from "./renderer/hillCurve.js"
 import type { DotLayout } from "./renderer/scopeDot.js"
 import { applyCollisionOffset, calculateDotLayout } from "./renderer/scopeDot.js"
-import { SVGBuilder } from "./renderer/svgBuilder.js"
+import { SVGBuilder, svgEl } from "./renderer/svgBuilder.js"
 import { measureTextByClass } from "./renderer/textMeasurement.js"
 import { getThemeVariables, STYLE_CONFIG } from "./styles.js"
 
@@ -89,7 +91,18 @@ export const renderer: DiagramRenderer = {
 
     const diagramConfig = db.getConfig()
     const mermaidConfig = getConfig()
+
+    const { look, handDrawnSeed } = mermaidConfig
     const themeVariables = getThemeVariables(mermaidConfig)
+
+    const useHandDrawn = look === "handDrawn" && handDrawnSeed !== undefined
+
+    /**
+     * RoughJS renderer instance.
+     * Note: RoughJS elements don't support CSS classes for styling; colors must
+     * be explicitly passed to RoughJS methods.
+     */
+    const roughSvg = useHandDrawn ? roughjs.svg(svg) : undefined
 
     const builder = SVGBuilder.from(svg)
 
@@ -152,19 +165,38 @@ export const renderer: DiagramRenderer = {
     }
 
     const hillPath = curveGeometry.getCurvePath()
-    builder.add("path", {
-      d: hillPath,
-      class: "hillchart__curve",
-    })
+    if (useHandDrawn && roughSvg) {
+      builder.append(() =>
+        roughSvg.path(hillPath, {
+          stroke: themeVariables.lineColor,
+          strokeWidth: STYLE_CONFIG.curve.strokeWidth,
+        }),
+      )
+    } else {
+      builder.add("path", {
+        d: hillPath,
+        class: "hillchart__curve",
+      })
+    }
 
     const peakLine = curveGeometry.getPeakLine()
-    builder.add("line", {
-      x1: peakLine.x1.toFixed(2),
-      y1: peakLine.y1.toFixed(2),
-      x2: peakLine.x2.toFixed(2),
-      y2: peakLine.y2.toFixed(2),
-      class: "hillchart__peak",
-    })
+    if (useHandDrawn && roughSvg) {
+      builder.append(() =>
+        roughSvg.line(peakLine.x1, peakLine.y1, peakLine.x2, peakLine.y2, {
+          stroke: themeVariables.lineColor,
+          strokeWidth: STYLE_CONFIG.curve.strokeWidth,
+          strokeLineDash: [4, 4],
+        }),
+      )
+    } else {
+      builder.add("line", {
+        x1: peakLine.x1.toFixed(2),
+        y1: peakLine.y1.toFixed(2),
+        x2: peakLine.x2.toFixed(2),
+        y2: peakLine.y2.toFixed(2),
+        class: "hillchart__peak",
+      })
+    }
 
     const uphillGroupBuilder = SVGBuilder.create(doc, "g")
     const downhillGroupBuilder = SVGBuilder.create(doc, "g")
@@ -198,6 +230,7 @@ export const renderer: DiagramRenderer = {
         dot.scope.phase === "uphill" ? uphillGroupBuilder : downhillGroupBuilder
 
       const colorIndex = index % themeVariables.THEME_COLOR_LIMIT
+      const cScaleColor = themeVariables[`cScale${colorIndex}`]
 
       const scopeGroupBuilder = SVGBuilder.create(doc, "g", {
         class: [
@@ -208,25 +241,62 @@ export const renderer: DiagramRenderer = {
         ].join(" "),
       })
 
-      if (dot.scope.color) {
+      // Color priority: explicit user override > theme color scale > primary
+      // theme color.
+      const scopeColor = dot.scope.color ?? cScaleColor ?? themeVariables.primaryColor
+      const strokeColor = themeVariables.background
+
+      if (dot.scope.color && !roughSvg) {
         // Set CSS variable for explicit colors to allow overwrites in CSS
         scopeGroupBuilder.el.style.setProperty("--mermaid-hillchart-scope-color", dot.scope.color)
       }
 
-      scopeGroupBuilder.add("circle", {
-        cx: dot.cx.toFixed(2),
-        cy: dot.cy.toFixed(2),
-        r: dot.radius,
-        class: "hillchart-scope__dot",
-      })
-
-      scopeGroupBuilder.add("line", {
-        x1: dot.label.leaderLine.x1.toFixed(2),
-        y1: dot.label.leaderLine.y1.toFixed(2),
-        x2: dot.label.leaderLine.x2.toFixed(2),
-        y2: dot.label.leaderLine.y2.toFixed(2),
-        class: "hillchart-scope__leader-line",
-      })
+      scopeGroupBuilder.append(() =>
+        useHandDrawn && roughSvg
+          ? roughSvg.circle(dot.cx, dot.cy, dot.radius * 2, {
+              roughness: 0.7,
+              seed: handDrawnSeed,
+              fill: dot.scope.inactive
+                ? transparentize(scopeColor, 1 - STYLE_CONFIG.dot.inactiveOpacity)
+                : scopeColor,
+              fillStyle: "hachure",
+              fillWeight: 2,
+              hachureGap: 3,
+              hachureAngle: -41 + index * 60,
+              stroke: strokeColor,
+              strokeWidth: LAYOUT_CONFIG.dot.strokeWidth,
+            })
+          : svgEl(doc, "circle", {
+              cx: dot.cx.toFixed(2),
+              cy: dot.cy.toFixed(2),
+              r: dot.radius,
+              class: "hillchart-scope__dot",
+            }),
+      )
+      if (useHandDrawn && roughSvg) {
+        scopeGroupBuilder.append(() =>
+          roughSvg.line(
+            dot.label.leaderLine.x1,
+            dot.label.leaderLine.y1,
+            dot.label.leaderLine.x2,
+            dot.label.leaderLine.y2,
+            {
+              stroke: dot.scope.inactive
+                ? transparentize(scopeColor, STYLE_CONFIG.dot.inactiveOpacity)
+                : scopeColor,
+              strokeWidth: LAYOUT_CONFIG.dot.strokeWidth,
+            },
+          ),
+        )
+      } else {
+        scopeGroupBuilder.add("line", {
+          x1: dot.label.leaderLine.x1.toFixed(2),
+          y1: dot.label.leaderLine.y1.toFixed(2),
+          x2: dot.label.leaderLine.x2.toFixed(2),
+          y2: dot.label.leaderLine.y2.toFixed(2),
+          class: "hillchart-scope__leader-line",
+        })
+      }
       scopeGroupBuilder.add(
         "text",
         {

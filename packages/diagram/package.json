@@ -49,7 +49,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "langium": "catalog:"
+    "khroma": "^2.1.0",
+    "langium": "catalog:",
+    "roughjs": "^4.6.6"
   },
   "devDependencies": {
     "mermaid": "catalog:",

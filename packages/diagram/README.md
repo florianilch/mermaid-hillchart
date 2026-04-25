@@ -127,7 +127,7 @@ hillchart
 
 ## Theming
 
-This plugin follows Mermaid's built-in theming system and `themeVariables`. By default, curve, label, and scope colors come from Mermaid theme variables, including the `cScale` palette used for automatic scope colors.
+This plugin follows Mermaid's built-in theming system and `themeVariables`. By default, curve, label, and scope colors come from Mermaid theme variables, including the `cScale` palette used for automatic scope colors. It also renders in a hand-drawn style when Mermaid is configured with `look: "handDrawn"`.
 
 Use Mermaid `themeVariables` when you want Hill Charts to inherit from your site or app theme:
 

@@ -1,7 +1,7 @@
 import type { HillChartDiagram, LangiumParser, ParseResult } from "mermaid-hillchart-dsl"
 import type { ParserDefinition as MermaidParserDefinition } from "mermaid/dist/diagram-api/types.js"
 
-import type { HillChartDB } from "./db.js"
+import type { HillChartDB, Scope } from "./db.js"
 import { HillChartParseError } from "./parserError.js"
 
 export type AstParser = (text: string) => Promise<HillChartDiagram>
@@ -33,6 +33,22 @@ const createAstParser = (): AstParser => {
 const defaultAstParser = createAstParser()
 
 /**
+ * Normalizes phase aliases to canonical phase values.
+ */
+function normalizePhase(phase: string): Scope["phase"] {
+  switch (phase) {
+    case "up":
+    case "uphill":
+      return "uphill"
+    case "down":
+    case "downhill":
+      return "downhill"
+    default:
+      throw new Error("Unknown phase")
+  }
+}
+
+/**
  * Maps the generated AST into domain concepts and populates the diagram database.
  */
 function populateDb(ast: HillChartDiagram, db: HillChartDB): void {
@@ -46,7 +62,7 @@ function populateDb(ast: HillChartDiagram, db: HillChartDB): void {
         id: scope.id,
       }),
       name: scope.name,
-      phase: scope.phase,
+      phase: normalizePhase(scope.phase),
       position: scope.position,
       ...(scope.color !== undefined && {
         color: scope.color,

@@ -166,6 +166,17 @@ describe("DSL parser", () => {
     })
   })
 
+  describe("phase aliases", () => {
+    it.each(["up", "uphill", "down", "downhill"] as const)("accepts %s", (phase) => {
+      const ast = parseOk(`
+        hillchart
+          scope demo: ${phase} 20
+      `)
+
+      expect(ast.scopes[0]?.phase).toBe(phase)
+    })
+  })
+
   it("surfaces invalid input with diagnostics", () => {
     const result = parse(`
       title Broken

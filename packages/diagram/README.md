@@ -63,7 +63,7 @@ hillchart
 
 ### Language Features
 
-- **Phase Labels:** Override the default left and right phase labels using `uphill <label>` and `downhill <label>`.
+- **Phase Labels:** Override the default left and right phase labels using `uphill <label>` and `downhill <label>`. (Aliases `up` and `down` are also supported).
   - Defaults: `Figuring things out` and `Making it happen`, reflecting Shape Up’s uphill/downhill model from unknowns to execution.
 - **Scopes:** Define scopes using `scope [id] "name": <phase> <position> [color] [inactive]`.
   - `[id]` is optional. If provided, it is added as a modifier CSS class on the scope's SVG group (`hillchart-scope--id-<id>`), allowing for external CSS styling hooks.

@@ -63,7 +63,7 @@ describe("parser to DB state", () => {
           {
             id: "backend",
             name: "Backend API",
-            phase: "uphill",
+            phase: "up",
             position: 45,
             color: "#3b82f6",
             inactive: true,
@@ -133,6 +133,41 @@ describe("parser to DB state", () => {
         ],
       })
     })
+
+    it.each([
+      {
+        phase: "up",
+        expected: "uphill",
+      },
+      {
+        phase: "uphill",
+        expected: "uphill",
+      },
+      {
+        phase: "down",
+        expected: "downhill",
+      },
+      {
+        phase: "downhill",
+        expected: "downhill",
+      },
+    ] as const)("normalizes $phase to $expected for DB state", async ({ phase, expected }) => {
+      const ast: AstFixture = {
+        scopes: [
+          {
+            name: "demo",
+            phase,
+            position: 20,
+            inactive: false,
+          },
+        ],
+      }
+
+      const { state } = await parseWithAstFixture(ast)
+
+      expect(state.scopes).toHaveLength(1)
+      expect(state.scopes[0]?.phase).toBe(expected)
+    })
   })
 
   describe("with real DSL parser", () => {
@@ -140,7 +175,7 @@ describe("parser to DB state", () => {
       const { state } = await parseWithDsl(`
         hillchart
           title Cycle 10 Progress
-          scope demo: downhill 70
+          scope demo: down 70
       `)
 
       expect(state).toEqual({

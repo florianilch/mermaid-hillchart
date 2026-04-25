@@ -37,7 +37,7 @@ If you are using Mermaid via a CDN or script tag, you can drop in the standalone
   </pre>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
-    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.3.0/dist/bundle/index.js"
+    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.4.0/dist/bundle/index.js"
 
     await mermaid.registerExternalDiagrams([hillChart])
     mermaid.initialize({ startOnLoad: true })

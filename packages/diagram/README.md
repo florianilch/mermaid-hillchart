@@ -58,7 +58,7 @@ hillchart
   scope design "Template design": uphill 70
   scope delivery "Email delivery": downhill 65 #10b981
   scope menu "In-app menu": uphill 20
-  scope sms "SMS fallback": uphill 0
+  scope sms "SMS fallback": uphill 0 inactive
 ```
 
 ### Language Features

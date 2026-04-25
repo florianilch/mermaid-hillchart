@@ -29,7 +29,7 @@ describe("DSL parser", () => {
         downhill Execution
 
         scope backend "Backend API": downhill 45 #3b82f6
-        scope Migration: uphill 30 #ef4444
+        scope Migration: uphill 30 #ef4444 inactive
     `)
 
     expect(ast.title).toBe("Cycle 10 Progress")
@@ -44,12 +44,14 @@ describe("DSL parser", () => {
       phase: "downhill",
       position: 45,
       color: "#3b82f6",
+      inactive: false,
     })
     expect(ast.scopes[1]).toMatchObject({
       name: "Migration",
       phase: "uphill",
       position: 30,
       color: "#ef4444",
+      inactive: true,
     })
   })
 
@@ -87,6 +89,7 @@ describe("DSL parser", () => {
           name: "Backend API",
           phase: "downhill",
           position: 45,
+          inactive: false,
         },
       },
       {
@@ -99,6 +102,7 @@ describe("DSL parser", () => {
           name: "UI Design",
           phase: "uphill",
           position: 80,
+          inactive: false,
         },
       },
       {
@@ -111,6 +115,7 @@ describe("DSL parser", () => {
           name: "Migration",
           phase: "uphill",
           position: 30,
+          inactive: false,
         },
       },
       {
@@ -124,6 +129,34 @@ describe("DSL parser", () => {
           phase: "downhill",
           position: 55,
           color: "#3b82f6",
+          inactive: false,
+        },
+      },
+      {
+        name: "inactive modifier",
+        definition: `
+          hillchart
+            scope Ops: uphill 25 inactive
+        `,
+        expected: {
+          name: "Ops",
+          phase: "uphill",
+          position: 25,
+          inactive: true,
+        },
+      },
+      {
+        name: "color + inactive modifiers",
+        definition: `
+          hillchart
+            scope QA: downhill 75 #ef4444 inactive
+        `,
+        expected: {
+          name: "QA",
+          phase: "downhill",
+          position: 75,
+          color: "#ef4444",
+          inactive: true,
         },
       },
     ])("parses $name", ({ definition, expected }) => {
@@ -154,6 +187,7 @@ describe("DSL parser", () => {
       name: "demo",
       phase: "uphill",
       position: 20,
+      inactive: false,
     })
   })
 

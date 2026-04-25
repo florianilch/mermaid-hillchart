@@ -65,11 +65,12 @@ hillchart
 
 - **Phase Labels:** Override the default left and right phase labels using `uphill <label>` and `downhill <label>`.
   - Defaults: `Figuring things out` and `Making it happen`, reflecting Shape Up’s uphill/downhill model from unknowns to execution.
-- **Scopes:** Define scopes using `scope [id] "name": <phase> <position> [color]`.
+- **Scopes:** Define scopes using `scope [id] "name": <phase> <position> [color] [inactive]`.
   - `[id]` is optional. If provided, it is added as a modifier CSS class on the scope's SVG group (`hillchart-scope--id-<id>`), allowing for external CSS styling hooks.
   - `<phase>` can be `up`, `uphill`, `down`, or `downhill`.
   - `<position>` is a relative location on that side of the hill (commonly 0–100 for convenience), not a percentage of completion.
   - `[color]` is an optional hex color code (e.g., `#3b82f6`).
+  - `[inactive]` is an optional flag to mark a scope as not currently active on the chart, such as deferred, cut, or not yet started work.
 - **Accessibility:** Add `accTitle: <title>` and `accDescr: <description>` for screen readers.
 
 ## Theming

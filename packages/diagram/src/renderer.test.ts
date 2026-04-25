@@ -198,6 +198,7 @@ describe("renderer", () => {
         name: "Search",
         phase: "uphill",
         position: 30,
+        inactive: false,
       })
 
       const svg = await renderWithDb(db)
@@ -274,6 +275,7 @@ describe("renderer", () => {
         name: "Scope A",
         phase: "uphill",
         position: 20,
+        inactive: false,
       })
 
       mockTextMeasurements({
@@ -305,12 +307,14 @@ describe("renderer", () => {
         name: "Backend",
         phase: "uphill",
         position: 20,
+        inactive: false,
         color: "#ff00aa",
       })
       db.addScope({
         name: "Ops",
         phase: "downhill",
         position: 65,
+        inactive: true,
       })
 
       const svg = await renderWithDb(db)
@@ -328,6 +332,7 @@ describe("renderer", () => {
       expect(Array.from(scopeGroups[1]?.classList ?? [])).toEqual([
         "hillchart-scope",
         "hillchart-scope--color-1",
+        "hillchart-scope--inactive",
       ])
     })
 
@@ -341,6 +346,7 @@ describe("renderer", () => {
         name: "Scope A",
         phase: "downhill",
         position: 60,
+        inactive: false,
       })
 
       const svg = await renderWithDb(db)

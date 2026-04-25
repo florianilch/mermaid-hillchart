@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0] - 2026-04-25
+
+Hill charts now follow the hand-drawn look, matching Mermaid's sketch-style rendering, themes, and look settings.
+
+### What's New
+
+- Adds hand-drawn rendering support for curves, peaks, and scope markers when the hand-drawn look is selected.
+
+### Technical Changes
+
+- Updates README examples
+
 ## [0.4.0] - 2026-04-25
 
 Publish bet progress and momentum directly in existing Mermaid-powered docs, with shorter syntax for scope updates.
@@ -57,3 +69,4 @@ Scopes can now define their own colors, making them easier to distinguish when s
 [0.2.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.1.0...v0.2.0
 [0.3.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.2.0...v0.3.0
 [0.4.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.3.0...v0.4.0
+[0.5.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.4.0...v0.5.0

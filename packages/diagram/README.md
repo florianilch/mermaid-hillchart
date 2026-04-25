@@ -35,7 +35,7 @@ If you are using Mermaid via a CDN or script tag in the browser, use the `bundle
   </pre>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
-    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.4.0/dist/bundle/index.js"
+    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.5.0/dist/bundle/index.js"
 
     // 1. Register the plugin
     await mermaid.registerExternalDiagrams([hillChart])

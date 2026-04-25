@@ -5,8 +5,6 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: "0 7 * * *" # Daily at 7:00 UTC
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -18,7 +16,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    if: github.event_name != 'schedule' # don't run every day
 
     timeout-minutes: 30
     permissions:
@@ -43,7 +40,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    if: github.event_name != 'schedule'
 
     timeout-minutes: 30
     permissions:

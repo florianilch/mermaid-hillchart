@@ -363,7 +363,7 @@ describe("renderer", () => {
       )
     })
 
-    it("renders the hand-drawn branch contract", async () => {
+    it("renders the hand-drawn look", async () => {
       mockConfig({
         look: "handDrawn",
         handDrawnSeed: 1,

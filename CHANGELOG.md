@@ -1,6 +1,23 @@
 # Changelog
 
-## [0.2.0](https://github.com/florianilch/mermaid-hillchart/releases/tag/v0.2.0) - 2026-04-25
+## [0.3.0] - 2026-04-25
+
+This release improves readability for crowded hill charts and adds a way to distinguish scopes that have not started or have been cut.
+
+### What's New
+
+- Adds an `inactive` modifier for scopes that have not started or have been cut.
+
+### Improvements
+
+- Improves readability in crowded hill charts by staggering nearby scope markers while keeping labels and leader lines aligned.
+
+### Technical Changes
+
+- Fixes the README syntax example.
+- Adds renderer and scope-dot behavior test coverage.
+
+## [0.2.0] - 2026-04-25
 
 Scopes can now define their own colors, making them easier to distinguish when several scopes appear on the same hill chart.
 
@@ -8,7 +25,7 @@ Scopes can now define their own colors, making them easier to distinguish when s
 
 - Adds optional hex colors to `scope` declarations, supporting short and long RGB/RGBA forms such as `#3b82f6`.
 
-## [0.1.0](https://github.com/florianilch/mermaid-hillchart/releases/tag/v0.1.0) - 2026-04-24
+## 0.1.0 - 2026-04-24
 
 `mermaid-hillchart` brings Shape Up hill charts to Mermaid, helping teams publish bet progress and momentum where they already build, explain, and review the work.
 
@@ -24,3 +41,6 @@ Scopes can now define their own colors, making them easier to distinguish when s
 - Added monthly Dependabot updates for GitHub Actions dependencies.
 - Added integration tests that verify the built package can be loaded and rendered by Mermaid.
 - Set up the initial project structure.
+
+[0.2.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.1.0...v0.2.0
+[0.3.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.2.0...v0.3.0

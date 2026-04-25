@@ -19,6 +19,7 @@ interface PhaseStatement {
 ScopeStatement:
     'scope' (id=ID)? name=(STRING | ID) ':'?
     phase=PhaseKeyword position=NUMBER
+    (color=HEX_COLOR)?
     EOL;
 
 UphillStatement returns PhaseStatement:
@@ -50,6 +51,9 @@ terminal STRING returns string: /"([^"\\]|\\.)*"|'([^'\\]|\\.)*'/;
 
 // ID: alphanumeric identifier for technical references (no spaces)
 terminal ID returns string: /[\w]([-\w]*\w)?/;
+
+// Hex color: supports #RRGGBBAA, #RRGGBB, #RGBA, #RGB formats
+terminal HEX_COLOR: /#([0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{4}|[0-9a-fA-F]{3})/;
 
 terminal NEWLINE: /\r?\n/;
 

@@ -28,8 +28,8 @@ describe("DSL parser", () => {
         uphill Research
         downhill Execution
 
-        scope backend "Backend API": downhill 45
-        scope Migration: uphill 30
+        scope backend "Backend API": downhill 45 #3b82f6
+        scope Migration: uphill 30 #ef4444
     `)
 
     expect(ast.title).toBe("Cycle 10 Progress")
@@ -43,11 +43,13 @@ describe("DSL parser", () => {
       name: "Backend API",
       phase: "downhill",
       position: 45,
+      color: "#3b82f6",
     })
     expect(ast.scopes[1]).toMatchObject({
       name: "Migration",
       phase: "uphill",
       position: 30,
+      color: "#ef4444",
     })
   })
 
@@ -109,6 +111,19 @@ describe("DSL parser", () => {
           name: "Migration",
           phase: "uphill",
           position: 30,
+        },
+      },
+      {
+        name: "color modifier",
+        definition: `
+          hillchart
+            scope API: downhill 55 #3b82f6
+        `,
+        expected: {
+          name: "API",
+          phase: "downhill",
+          position: 55,
+          color: "#3b82f6",
         },
       },
     ])("parses $name", ({ definition, expected }) => {

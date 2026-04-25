@@ -48,6 +48,9 @@ function populateDb(ast: HillChartDiagram, db: HillChartDB): void {
       name: scope.name,
       phase: scope.phase,
       position: scope.position,
+      ...(scope.color !== undefined && {
+        color: scope.color,
+      }),
     })
   }
 

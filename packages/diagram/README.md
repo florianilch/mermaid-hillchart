@@ -56,7 +56,7 @@ hillchart
   downhill "Execution"
 
   scope design "Template design": uphill 70
-  scope delivery "Email delivery": downhill 65
+  scope delivery "Email delivery": downhill 65 #10b981
   scope menu "In-app menu": uphill 20
   scope sms "SMS fallback": uphill 0
 ```
@@ -65,10 +65,11 @@ hillchart
 
 - **Phase Labels:** Override the default left and right phase labels using `uphill <label>` and `downhill <label>`.
   - Defaults: `Figuring things out` and `Making it happen`, reflecting Shape Up’s uphill/downhill model from unknowns to execution.
-- **Scopes:** Define scopes using `scope [id] "name": <phase> <position>`.
+- **Scopes:** Define scopes using `scope [id] "name": <phase> <position> [color]`.
   - `[id]` is optional. If provided, it is added as a modifier CSS class on the scope's SVG group (`hillchart-scope--id-<id>`), allowing for external CSS styling hooks.
   - `<phase>` can be `up`, `uphill`, `down`, or `downhill`.
   - `<position>` is a relative location on that side of the hill (commonly 0–100 for convenience), not a percentage of completion.
+  - `[color]` is an optional hex color code (e.g., `#3b82f6`).
 - **Accessibility:** Add `accTitle: <title>` and `accDescr: <description>` for screen readers.
 
 ## Theming
@@ -105,3 +106,6 @@ For diagram-specific overrides, the following CSS custom properties are exposed.
   */
 }
 ```
+
+> [!NOTE]
+> If you assign an `id` to a scope (e.g. `scope my_scope "Name": up 50`), the rendered SVG group will include the modifier class `hillchart-scope--id-my_scope`, allowing for targeted CSS overrides.

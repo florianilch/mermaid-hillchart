@@ -199,6 +199,11 @@ export const renderer: DiagramRenderer = {
         ].join(" "),
       })
 
+      if (dot.scope.color) {
+        // Set CSS variable for explicit colors to allow overwrites in CSS
+        scopeGroupBuilder.el.style.setProperty("--mermaid-hillchart-scope-color", dot.scope.color)
+      }
+
       scopeGroupBuilder.add("circle", {
         cx: dot.cx.toFixed(2),
         cy: dot.cy.toFixed(2),

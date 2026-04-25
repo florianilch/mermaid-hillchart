@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.1.0 - 2026-04-24
+## [0.2.0](https://github.com/florianilch/mermaid-hillchart/releases/tag/v0.2.0) - 2026-04-25
+
+Scopes can now define their own colors, making them easier to distinguish when several scopes appear on the same hill chart.
+
+### What's New
+
+- Adds optional hex colors to `scope` declarations, supporting short and long RGB/RGBA forms such as `#3b82f6`.
+
+## [0.1.0](https://github.com/florianilch/mermaid-hillchart/releases/tag/v0.1.0) - 2026-04-24
 
 `mermaid-hillchart` brings Shape Up hill charts to Mermaid, helping teams publish bet progress and momentum where they already build, explain, and review the work.
 

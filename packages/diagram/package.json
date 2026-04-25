@@ -1,6 +1,6 @@
 {
   "name": "mermaid-hillchart",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "External Mermaid diagram plugin for rendering Hill Charts",
   "keywords": [
     "diagram",
@@ -24,8 +24,7 @@
     "directory": "packages/diagram"
   },
   "files": [
-    "dist",
-    "example.png"
+    "dist"
   ],
   "type": "module",
   "exports": {

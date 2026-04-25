@@ -5,7 +5,7 @@ import type { HillChartDB } from "./db.js"
 import { getConfig, log } from "./mermaidUtils.js"
 import { createCurveGeometry } from "./renderer/hillCurve.js"
 import type { DotLayout } from "./renderer/scopeDot.js"
-import { calculateDotLayout } from "./renderer/scopeDot.js"
+import { applyCollisionOffset, calculateDotLayout } from "./renderer/scopeDot.js"
 import { SVGBuilder } from "./renderer/svgBuilder.js"
 import { measureTextByClass } from "./renderer/textMeasurement.js"
 import { getThemeVariables, STYLE_CONFIG } from "./styles.js"
@@ -41,6 +41,10 @@ const LAYOUT_CONFIG = {
     strokeWidth: STYLE_CONFIG.dot.strokeWidth,
     leaderLength: 20,
     labelOffset: 8,
+  } as const,
+  collision: {
+    threshold: 20,
+    staggerAmount: 15,
   } as const,
   titleChartGap: 16,
   chartPhaseLabelGap: 16,
@@ -129,6 +133,10 @@ export const renderer: DiagramRenderer = {
         config: LAYOUT_CONFIG.dot,
       })
     })
+
+    // Resolve spatial conflicts to prevent overlapping labels (mutates
+    // dotLayouts in-place).
+    applyCollisionOffset(dotLayouts, LAYOUT_CONFIG.collision)
 
     // The curve geometry is the single source of truth for all spatial calculations.
     if (state.title) {

@@ -58,6 +58,4 @@ Interested in improving the parser or modifying the rendering engine? See [CONTR
 
 ## License
 
-This plugin is built for Mermaid.js, which is licensed under the MIT License.
-This project is an independent plugin and is not affiliated with, endorsed by, or owned by the Mermaid.js team.
-The code for this plugin is licensed under the MIT License.
+MIT licensed. This project is an independent Mermaid.js plugin and is not affiliated with, endorsed by, or owned by the Mermaid.js team.

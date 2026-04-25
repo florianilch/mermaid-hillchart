@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0] - 2026-04-25
+
+Publish bet progress and momentum directly in existing Mermaid-powered docs, with shorter syntax for scope updates.
+
+### What's New
+
+- Adds a browser-ready bundle for CDN and script-tag setups, making it easier to show bet progress and momentum across Mermaid-powered docs.
+
+### Improvements
+
+- Adds `up` and `down` aliases for `uphill` and `downhill`, keeping scope updates terse.
+
 ## [0.3.0] - 2026-04-25
 
 This release improves readability for crowded hill charts and adds a way to distinguish scopes that have not started or have been cut.
@@ -44,3 +56,4 @@ Scopes can now define their own colors, making them easier to distinguish when s
 
 [0.2.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.1.0...v0.2.0
 [0.3.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.2.0...v0.3.0
+[0.4.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.3.0...v0.4.0

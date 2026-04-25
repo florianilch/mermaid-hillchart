@@ -11,6 +11,14 @@ export interface DotGeometryConfig {
 }
 
 /**
+ * Configuration for the collision detection algorithm.
+ */
+export interface CollisionConfig {
+  threshold: number
+  staggerAmount: number
+}
+
+/**
  * Represents the calculated geometric layout of a scope dot and its label.
  */
 export interface DotLayout {
@@ -82,5 +90,34 @@ export function calculateDotLayout(scope: Scope, options: DotLayoutOptions): Dot
       },
     },
     scope: scope,
+  }
+}
+
+/**
+ * Resolves label overlaps by staggering colliding dots vertically.
+ * Mutates the provided layout in-place.
+ */
+export function applyCollisionOffset(dots: DotLayout[], config: CollisionConfig): void {
+  // Sorting ensures consistent staggering order regardless of input order
+  const sorted = [...dots].sort((a, b) => a.cx - b.cx)
+
+  for (let i = 1; i < sorted.length; i++) {
+    const current = sorted[i]
+    const previous = sorted[i - 1]
+
+    if (!current || !previous) continue
+
+    // Collision detection uses full-precision geometry; coordinate rounding occurs during SVG rendering.
+    // The threshold provides margin for any discrepancy between calculated and rendered positions.
+    const dx = Math.abs(current.cx - previous.cx)
+    const dy = Math.abs(current.cy - previous.cy)
+
+    if (dx < config.threshold && dy < config.threshold) {
+      // Stagger upward to resolve collision
+      current.cy -= config.staggerAmount
+      current.label.y -= config.staggerAmount
+      current.label.leaderLine.y1 -= config.staggerAmount
+      current.label.leaderLine.y2 -= config.staggerAmount
+    }
   }
 }

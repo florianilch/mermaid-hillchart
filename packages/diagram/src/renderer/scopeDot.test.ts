@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest"
 
 import type { Scope } from "../db.js"
-import { calculateDotLayout } from "./scopeDot.js"
+import type { DotLayout } from "./scopeDot.js"
+import { applyCollisionOffset, calculateDotLayout } from "./scopeDot.js"
 
 const scope = {
   name: "Scope A",
@@ -16,6 +17,30 @@ const dotConfig = {
   leaderLength: 20,
   labelOffset: 8,
 } as const
+
+const collisionConfig = {
+  threshold: 20,
+  staggerAmount: 15,
+} as const
+
+const createDotLayout = ({ cx, cy }: { cx: number; cy: number }): DotLayout => ({
+  cx,
+  cy,
+  radius: dotConfig.radius,
+  label: {
+    text: scope.name,
+    x: cx + dotConfig.radius,
+    y: cy,
+    anchor: "start",
+    leaderLine: {
+      x1: cx,
+      y1: cy,
+      x2: cx + dotConfig.leaderLength,
+      y2: cy,
+    },
+  },
+  scope,
+})
 
 describe("scopeDot geometry", () => {
   describe("calculateDotLayout", () => {
@@ -94,6 +119,61 @@ describe("scopeDot geometry", () => {
         },
         scope,
       })
+    })
+  })
+
+  describe("applyCollisionOffset", () => {
+    it("moves the later colliding dot upward and keeps label geometry in sync", () => {
+      const first = createDotLayout({
+        cx: 100,
+        cy: 80,
+      })
+      const second = createDotLayout({
+        cx: 110,
+        cy: 85,
+      })
+
+      applyCollisionOffset([first, second], collisionConfig)
+
+      expect(first.cy).toBe(80)
+      expect(second.cy).toBe(70)
+      expect(second.label.y).toBe(70)
+      expect(second.label.leaderLine.y1).toBe(70)
+      expect(second.label.leaderLine.y2).toBe(70)
+    })
+
+    it("does not move dots when they do not collide", () => {
+      const first = createDotLayout({
+        cx: 100,
+        cy: 80,
+      })
+      const second = createDotLayout({
+        cx: 130,
+        cy: 85,
+      })
+
+      applyCollisionOffset([first, second], collisionConfig)
+
+      expect(first.cy).toBe(80)
+      expect(first.label.y).toBe(80)
+      expect(second.cy).toBe(85)
+      expect(second.label.y).toBe(85)
+    })
+
+    it("uses x-order instead of input order when deciding which dot to stagger", () => {
+      const rightmost = createDotLayout({
+        cx: 110,
+        cy: 85,
+      })
+      const leftmost = createDotLayout({
+        cx: 100,
+        cy: 80,
+      })
+
+      applyCollisionOffset([rightmost, leftmost], collisionConfig)
+
+      expect(leftmost.cy).toBe(80)
+      expect(rightmost.cy).toBe(70)
     })
   })
 })

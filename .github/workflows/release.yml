@@ -136,13 +136,13 @@ jobs:
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
             echo "Release $TAG_NAME already exists; preserving existing notes."
           else
-            cat <<EOF > release-notes.md
-            TODO: replace this draft text with the reviewed release notes.
+            cat > release-notes.md <<'EOF'
+          TODO: replace this draft text with the reviewed release notes.
 
-            Attached artifacts:
-            - npm tarball
-            - CycloneDX SBOM
-            EOF
+          Attached artifacts:
+          - npm tarball
+          - CycloneDX SBOM
+          EOF
             gh release create "$TAG_NAME" --draft --verify-tag --title "$TAG_NAME" --notes-file release-notes.md
           fi
 

@@ -7,6 +7,7 @@ const scope = {
   name: "Scope A",
   phase: "uphill",
   position: 40,
+  inactive: false,
 } satisfies Scope
 
 const dotConfig = {

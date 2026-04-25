@@ -11,6 +11,7 @@ export const STYLE_CONFIG = {
   },
   dot: {
     strokeWidth: 1,
+    inactiveOpacity: 0.4,
   },
 } as const
 
@@ -104,6 +105,14 @@ export const getStyles: DiagramStylesProvider = (options: HillChartStyleOptions)
     .hillchart-scope__leader-line {
       stroke-width: ${STYLE_CONFIG.dot.strokeWidth.toFixed(0)}px;
       stroke: var(--mermaid-hillchart-scope-color);
+    }
+
+    .hillchart-scope--inactive .hillchart-scope__dot {
+      fill: rgba(from var(--mermaid-hillchart-scope-color) r g b / ${STYLE_CONFIG.dot.inactiveOpacity.toFixed(2)});
+    }
+
+    .hillchart-scope--inactive .hillchart-scope__leader-line {
+      stroke: rgba(from var(--mermaid-hillchart-scope-color) r g b / ${STYLE_CONFIG.dot.inactiveOpacity.toFixed(2)});
     }
 
     ${generateScopeStyles(options)}

@@ -20,6 +20,7 @@ ScopeStatement:
     'scope' (id=ID)? name=(STRING | ID) ':'?
     phase=PhaseKeyword position=NUMBER
     (color=HEX_COLOR)?
+    (inactive?='inactive')?
     EOL;
 
 UphillStatement returns PhaseStatement:

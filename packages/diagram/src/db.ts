@@ -25,6 +25,7 @@ export interface Scope {
   phase: "uphill" | "downhill"
   position: number // 0-100
   color?: string
+  inactive: boolean
 }
 
 /**

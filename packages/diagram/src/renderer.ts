@@ -196,6 +196,7 @@ export const renderer: DiagramRenderer = {
           "hillchart-scope",
           `hillchart-scope--color-${String(colorIndex)}`,
           ...(dot.scope.id ? [`hillchart-scope--id-${dot.scope.id}`] : []),
+          ...(dot.scope.inactive ? ["hillchart-scope--inactive"] : []),
         ].join(" "),
       })
 

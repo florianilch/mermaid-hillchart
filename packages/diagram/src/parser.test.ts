@@ -66,11 +66,13 @@ describe("parser to DB state", () => {
             phase: "uphill",
             position: 45,
             color: "#3b82f6",
+            inactive: true,
           },
           {
             name: "Migration",
             phase: "downhill",
             position: 30,
+            inactive: false,
           },
         ],
       }
@@ -89,11 +91,44 @@ describe("parser to DB state", () => {
             phase: "uphill",
             position: 45,
             color: "#3b82f6",
+            inactive: true,
           },
           {
             name: "Migration",
             phase: "downhill",
             position: 30,
+            inactive: false,
+          },
+        ],
+      })
+    })
+
+    it("falls back to DB defaults when AST omits optional fields", async () => {
+      const ast: AstFixture = {
+        scopes: [
+          {
+            name: "demo",
+            phase: "uphill",
+            position: 20,
+            inactive: false,
+          },
+        ],
+      }
+
+      const { state } = await parseWithAstFixture(ast)
+
+      expect(state).toEqual({
+        title: "",
+        accTitle: "",
+        accDescr: "",
+        uphillLabel: "Figuring things out",
+        downhillLabel: "Making it happen",
+        scopes: [
+          {
+            name: "demo",
+            phase: "uphill",
+            position: 20,
+            inactive: false,
           },
         ],
       })
@@ -119,6 +154,7 @@ describe("parser to DB state", () => {
             name: "demo",
             phase: "downhill",
             position: 70,
+            inactive: false,
           },
         ],
       })

@@ -24,12 +24,12 @@ ScopeStatement:
     EOL;
 
 UphillStatement returns PhaseStatement:
-    phase=('uphill') label=(STRING | ID) EOL;
+    phase=('uphill' | 'up') label=(STRING | ID) EOL;
 DownhillStatement returns PhaseStatement:
-    phase=('downhill') label=(STRING | ID) EOL;
+    phase=('downhill' | 'down') label=(STRING | ID) EOL;
 
 PhaseKeyword returns string:
-    'uphill' | 'downhill';
+    'uphill' | 'downhill' | 'up' | 'down';
 
 EOL returns string: NEWLINE+ | EOF;
 

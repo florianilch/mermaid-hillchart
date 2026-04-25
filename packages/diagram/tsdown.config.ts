@@ -20,7 +20,7 @@ export default defineConfig([
     dts: false,
     sourcemap: false,
     deps: {
-      alwaysBundle: ["langium"],
+      alwaysBundle: ["khroma", "langium", "roughjs"],
       // bundle build intentionally bundles transitive node_modules deps; disable onlyBundle warnings
       onlyBundle: false,
     },

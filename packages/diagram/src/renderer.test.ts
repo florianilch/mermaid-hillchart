@@ -362,5 +362,40 @@ describe("renderer", () => {
         Number(leaderLine?.getAttribute("x1")),
       )
     })
+
+    it("renders the hand-drawn look", async () => {
+      mockConfig({
+        look: "handDrawn",
+        handDrawnSeed: 1,
+      })
+
+      const db = createDb()
+      db.addScope({
+        name: "Uphill Scope",
+        phase: "uphill",
+        position: 20,
+        inactive: false,
+      })
+      db.addScope({
+        name: "Downhill Scope",
+        phase: "downhill",
+        position: 60,
+        inactive: false,
+      })
+
+      const svg = await renderWithDb(db)
+
+      expect(svg.querySelectorAll(".hillchart-scope")).toHaveLength(2)
+      expect(
+        Array.from(svg.querySelectorAll(".hillchart__label"))
+          .map((label) => label.textContent)
+          .sort(),
+      ).toEqual(["Downhill Scope", "Uphill Scope"])
+      expect(svg.querySelector(".hillchart__curve")).toBeNull()
+      expect(svg.querySelector(".hillchart__peak")).toBeNull()
+      expect(svg.querySelector(".hillchart-scope__dot")).toBeNull()
+      expect(svg.querySelector(".hillchart-scope__leader-line")).toBeNull()
+      expect(svg.outerHTML).toContain('stroke-dasharray="4 4"')
+    })
   })
 })

@@ -24,6 +24,7 @@ export interface Scope {
   name: string
   phase: "uphill" | "downhill"
   position: number // 0-100
+  color?: string
 }
 
 /**

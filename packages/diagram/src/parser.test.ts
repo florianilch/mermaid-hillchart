@@ -65,6 +65,7 @@ describe("parser to DB state", () => {
             name: "Backend API",
             phase: "uphill",
             position: 45,
+            color: "#3b82f6",
           },
           {
             name: "Migration",
@@ -87,6 +88,7 @@ describe("parser to DB state", () => {
             name: "Backend API",
             phase: "uphill",
             position: 45,
+            color: "#3b82f6",
           },
           {
             name: "Migration",

@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.2",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/node26": "^26.0.1",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "~24.10.14",
+    "@types/node": "^26.6.6",
     "happy-dom": "^20.9.0",
     "oxfmt": "^0.46.0",
     "oxlint": "^1.61.0",
@@ -28,16 +28,16 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.0.0-rc.5+sha224.07413fb279f533eb7710a505251ad95f8c8b8a87755b9162bed2c538",
-      "onFail": "error"
+      "version": "~12.16.1",
+      "onFail": "download"
     },
     "runtime": {
       "name": "node",
-      "version": ">=24",
+      "version": ">=26",
       "onFail": "error"
     }
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   }
 }

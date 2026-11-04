@@ -3,7 +3,7 @@ packages:
   - "tests/*"
 
 catalog:
-  langium: ^4.2.2
+  langium: ^4.4.0
   # Pin one Mermaid version in-workspace to avoid duplicate type identities
   mermaid: 11.14.0
 

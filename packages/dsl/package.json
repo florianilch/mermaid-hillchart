@@ -24,6 +24,6 @@
     "langium": "catalog:"
   },
   "devDependencies": {
-    "langium-cli": "^4.2.1"
+    "langium-cli": "^4.4.0"
   }
 }

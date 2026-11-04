@@ -5,5 +5,5 @@
   "[json][jsonc]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
-  "js/ts.tsdk.path": "node_modules/typescript/lib"
+  "js/ts.experimental.useTsgo": true
 }

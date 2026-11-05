@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.0] - 2026-11-05
+
+Adds compatibility with Mermaid 12.
+
 ## [0.5.0] - 2026-04-25
 
 Hill charts now follow the hand-drawn look, matching Mermaid's sketch-style rendering, themes, and look settings.
@@ -70,3 +74,4 @@ Scopes can now define their own colors, making them easier to distinguish when s
 [0.3.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.2.0...v0.3.0
 [0.4.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.3.0...v0.4.0
 [0.5.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.4.0...v0.5.0
+[0.6.0]: https://github.com/florianilch/mermaid-hillchart/compare/v0.5.0...v0.6.0

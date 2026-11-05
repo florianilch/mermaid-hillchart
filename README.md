@@ -36,8 +36,8 @@ If you are using Mermaid via a CDN or script tag, you can drop in the standalone
       scope "In-app menu": uphill 20
   </pre>
   <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
-    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.5.0/dist/bundle/index.js"
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs"
+    import hillChart from "https://cdn.jsdelivr.net/npm/mermaid-hillchart@0.6.0/dist/bundle/index.js"
 
     await mermaid.registerExternalDiagrams([hillChart])
     mermaid.initialize({ startOnLoad: true })
@@ -49,7 +49,7 @@ _(Using a bundler? See the [bundler setup guide](./packages/diagram/README.md#us
 
 ## Compatibility
 
-- **Mermaid:** `^10.0.0 || ^11.0.0`
+- **Mermaid:** `^10.0.0 || ^11.0.0 || ^12.0.0`
 - **Host platform:** Must support external Mermaid diagrams. Native Markdown renderers on GitHub and GitLab usually do not load external plugins.
 
 ## Contributing
